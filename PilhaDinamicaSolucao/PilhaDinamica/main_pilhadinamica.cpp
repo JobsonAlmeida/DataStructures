@@ -29,7 +29,9 @@ int main() {
         }
         else if (opcao == 2) {
             item = pilha1.remover();
-            cout << "Elemento removido: " << item << endl;
+            if (item != 0){
+                cout << "Elemento removido: " << item << endl;
+            }            
             cout << "\n";
         }
         else if (opcao == 3) {

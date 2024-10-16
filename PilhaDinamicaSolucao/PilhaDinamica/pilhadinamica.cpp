@@ -46,7 +46,7 @@ bool pilhadinamica::estacheio() //tem memória? // isfull
 void pilhadinamica::inserir(TipoItem item) 
 {
 	if (estacheio()) {
-		cout << "A pilha está cheia! É impossível inserir um novo elemento!\n";
+		cout << "A pilha está cheia! É impossível inserir um novo elemento!\n\n";
 	}
 	else {
 		No* NoNovo = new No;
@@ -86,6 +86,6 @@ void pilhadinamica::imprimir()
 		NoTemp = NoTemp->proximo;
 	}
 
-	cout << " ]";
+	cout << " ]\n\n";
 
 }
