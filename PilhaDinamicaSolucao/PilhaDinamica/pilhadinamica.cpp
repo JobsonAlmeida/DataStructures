@@ -11,7 +11,15 @@ pilhadinamica::pilhadinamica()
 
 pilhadinamica::~pilhadinamica() 
 {
+	No* NoTemp;
 
+	while (NoTopo != NULL) {
+		NoTemp = NoTopo;
+		NoTopo = NoTopo->proximo;
+		delete NoTemp;
+	}
+
+	NoTemp = NULL; // aqui NoTopo possui o valor NULL, mas NoTemp não;
 
 }
 
@@ -68,5 +76,16 @@ TipoItem pilhadinamica::remover()
 
 void pilhadinamica::imprimir() 
 {
+	No* NoTemp = NoTopo;
+
+	cout << "Pilha Dinâmica: [ ";
+
+	while (NoTemp != NULL) {
+
+		cout << NoTemp->valor << " ";
+		NoTemp = NoTemp->proximo;
+	}
+
+	cout << " ]";
 
 }
