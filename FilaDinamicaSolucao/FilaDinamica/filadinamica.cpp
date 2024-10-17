@@ -50,7 +50,7 @@ bool filadinamica::estacheio() {
 void filadinamica::inserir(TipoItem item) {
 
 	if (estacheio()) {
-		cout << "A fila está cheia! Impossível inserir um novo elemento!\n";
+		cout << "A fila está cheia! Impossível inserir um novo elemento!\n\n";
 	}
 	else if (estavazio()) {
 		No* noTemp = new No;
@@ -62,7 +62,7 @@ void filadinamica::inserir(TipoItem item) {
 	else {
 		No* noTemp = new No;
 		noTemp->valor = item;
-		noTemp->proximo = ultimo->proximo;
+		noTemp->proximo = ultimo;
 		ultimo = noTemp;
 	}
 
@@ -70,14 +70,24 @@ void filadinamica::inserir(TipoItem item) {
 
 TipoItem filadinamica::remover() {
 
+	int valorRetorno = 0;
+
 	if (estavazio()) {
-		cout << "A fila está vazia! Impossível remover um elemento!\n";
+		cout << "A fila está vazia! Impossível remover um elemento!\n\n";
+	}
+	else if(primeiro->proximo == NULL && ultimo->proximo == NULL) {
+
+		No* noTemp1 = primeiro;
+		primeiro = NULL;
+		ultimo = NULL;
+		valorRetorno = noTemp1->valor;
+		delete noTemp1;
+
 	}
 	else {
 
 		No* noTemp1 = ultimo;
-		No* noTemp2 = ultimo;
-		int valorRetorno;
+		No* noTemp2 = noTemp1;
 
 		while (noTemp1->proximo != NULL) {
 			noTemp2 = noTemp1;
@@ -85,11 +95,13 @@ TipoItem filadinamica::remover() {
 		}
 
 		primeiro = noTemp2;
-		valorRetorno = primeiro->valor;
+		primeiro->proximo = NULL;
+		valorRetorno = noTemp1->valor;
 		delete noTemp1;
 
-		return valorRetorno;
 	}
+
+	return valorRetorno;
 }
 
 void filadinamica::imprimir() {
@@ -103,5 +115,5 @@ void filadinamica::imprimir() {
 		notemp = notemp->proximo;
 	}
 
-	cout << " ]";
+	cout << "]\n";
 }

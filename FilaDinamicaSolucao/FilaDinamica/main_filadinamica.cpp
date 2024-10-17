@@ -32,8 +32,10 @@ int main() {
         }
         else if (opcao == 2) {
             item = fila1.remover();
-            cout << "Elemento removido: " << item << endl;
-            cout << "\n";
+            if (item != 0) {
+                cout << "Elemento removido: " << item << endl;
+                cout << "\n";
+            }
         }
         else if (opcao == 3) {
             fila1.imprimir();
@@ -41,6 +43,6 @@ int main() {
         }
     } while (opcao != 0);
 
-
     return 0;
+
 }
