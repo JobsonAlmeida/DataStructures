@@ -4,7 +4,7 @@
 
 typedef int TipoItem;
 
-class No {
+class No { // in this case we can use structure or class
 	public:
 		TipoItem valor;
 		No* proximo;
