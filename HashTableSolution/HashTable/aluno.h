@@ -7,7 +7,7 @@ using namespace std;
 class Aluno {
 	private:
 		int ra;
-		string name;
+		string nome;
 
 	public:
 		Aluno();

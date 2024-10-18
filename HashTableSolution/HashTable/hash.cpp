@@ -25,7 +25,7 @@ int Hash::funcaoHash(Aluno aluno)
 
 bool Hash::estaCheio() 
 {
-	return (quantItens == maxItens)
+	return (quantItens == maxItens);
 }
 
 int Hash::obterTamanhoAtual() 
@@ -52,9 +52,8 @@ void Hash::deletar(Aluno aluno)
 
 }
 
-void Hash::buscar(Aluno& aluno, bool& busca) 
+void Hash::buscar(Aluno& aluno, bool& busca)
 {
-
 	int local = funcaoHash(aluno);
 	Aluno aux = estrutura[local];
 
@@ -64,15 +63,16 @@ void Hash::buscar(Aluno& aluno, bool& busca)
 	else {
 		busca = true;
 		aluno = aux; // 
-	
+	}
 }
 
-void Hash::imprimir() 
+void Hash::imprimir()
 {
 	cout << "Tabela Hash:\n";
-	for (int i = 0, i < maxItens; i++) {
-		if(estrutura[i].obterRa() != -1){
+	for (int i = 0; i < maxItens; i++) {
+		if (estrutura[i].obterRa() != -1) {
 			cout << i << ": " << estrutura[i].obterRa();
 			cout << estrutura[i].obterNome() << endl;
+		}
 	}
 }
