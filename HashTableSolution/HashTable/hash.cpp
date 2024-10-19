@@ -71,8 +71,9 @@ void Hash::imprimir()
 	cout << "Tabela Hash:\n";
 	for (int i = 0; i < maxItens; i++) {
 		if (estrutura[i].obterRa() != -1) {
-			cout << i << ": " << estrutura[i].obterRa();
-			cout << estrutura[i].obterNome() << endl;
+			cout << "índice " << i << ": " << "ra: " << estrutura[i].obterRa() << " - ";
+			cout << "nome: " << estrutura[i].obterNome() << endl;
 		}
 	}
+	cout << endl;
 }

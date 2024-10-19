@@ -5,6 +5,8 @@ using namespace std;
 
 int main() {
 
+	setlocale(LC_ALL, "Portuguese");
+
 	int tamVetor, max;
 
 	cout << "Programa gerador de Hash:\n\n";
@@ -15,7 +17,7 @@ int main() {
 	cout << "Digite o numero maimo de elementos: ";
 	cin >> max;
 
-	cout << "O fator de carga e: " << ( (float)max / (float)tamVetor )<< endl << endl;
+	cout << "O fator de carga e: " << ( (float)max / (float)tamVetor )<< "\n\n";
 
 	Hash alunohash(tamVetor, max);
 	int opcao;
@@ -38,12 +40,14 @@ int main() {
 			cin >> nome;
 			Aluno aluno(ra, nome);
 			alunohash.inserir(aluno);
+			cout << endl;
 		}
 		else if (opcao == 2) {
 			cout << "Qual é o ra do aluno a ser removido?\n";
 			cin >> ra;
 			Aluno aluno(ra, " ");
 			alunohash.deletar(aluno);
+			cout << endl;
 		}
 		else if (opcao == 3) {
 			cout << "Qual é o ra do aluno a ser buscado?\n";
@@ -59,15 +63,18 @@ int main() {
 			else {
 				cout << "Aluno não encontrado!\n";
 				cout << endl;
-
 			}
-
 		}
 		else if(opcao == 4){
 			alunohash.imprimir();
 		}
-
+		else {
+			cout << "Opção não encontrada!\n";
+			cout << endl;
+		}
 	} while (opcao != 0);
+
+	cout << "Programa finalizado!\n";
 
 	return 0;
 }
