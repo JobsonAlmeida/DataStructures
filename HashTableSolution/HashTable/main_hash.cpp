@@ -14,7 +14,7 @@ int main() {
 	cout << "Digite o tamanho da Hash: ";
 	cin >> tamVetor;
 
-	cout << "Digite o numero maimo de elementos: ";
+	cout << "Digite o numero máximo de elementos: ";
 	cin >> max;
 
 	cout << "O fator de carga e: " << ( (float)max / (float)tamVetor )<< "\n\n";
