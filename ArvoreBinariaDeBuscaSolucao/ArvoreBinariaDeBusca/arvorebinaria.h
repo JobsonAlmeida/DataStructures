@@ -6,8 +6,8 @@
 struct No
 {
 	Aluno aluno;
-	No* filhoesquerda;
-	No* filhodireita;
+	No* filhoEsquerda;
+	No* filhoDireita;
 };
 
 class ArvoreBinariaDeBusca

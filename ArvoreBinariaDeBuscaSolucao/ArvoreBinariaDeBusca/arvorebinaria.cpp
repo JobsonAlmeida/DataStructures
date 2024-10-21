@@ -41,15 +41,58 @@ bool ArvoreBinariaDeBusca::estaCheio()
 
 }
 
-void ArvoreBinariaDeBusca::inserir(Aluno aluno) {
+void ArvoreBinariaDeBusca::inserir(Aluno aluno) 
+{
+	if (estaCheio()) 
+	{
+		cout << "A árvore está cheia!\n";
+		cout << "Não foi possível inserir este elemento!\n";
+	}
+	else
+	{
+		No* NoNovo = new No;
+		NoNovo->aluno = aluno;
+		NoNovo->filhoDireita = NULL;
+		NoNovo->filhoEsquerda = NULL;
+
+		if (raiz == NULL) {
+			raiz = NoNovo;
+		}
+		else {
+			No* temp = raiz;
+			while (temp != NULL) {
+				if (aluno.obterRa() < temp->aluno.obterRa()) {
+					if (temp->filhoEsquerda == NULL) {
+						temp->filhoEsquerda = NoNovo;
+						break;
+					}
+					else {
+						temp = temp->filhoEsquerda;
+					}
+				}
+				else {
+					if (temp->filhoDireita == NULL) {
+						temp->filhoDireita = NoNovo;
+						break;
+					}
+					else {
+						temp = temp->filhoDireita;
+					}
+				}
+			}
+		}
+		 
+	}
 
 }
 
-void ArvoreBinariaDeBusca::remover(Aluno aluno) {
+void ArvoreBinariaDeBusca::remover(Aluno aluno) 
+{
 
 }
 
-void ArvoreBinariaDeBusca::buscar(Aluno& aluno, bool& busca) {
+void ArvoreBinariaDeBusca::buscar(Aluno& aluno, bool& busca)
+{
 
 }
 
