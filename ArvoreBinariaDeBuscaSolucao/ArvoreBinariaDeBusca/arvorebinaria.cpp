@@ -88,11 +88,26 @@ void ArvoreBinariaDeBusca::inserir(Aluno aluno)
 
 void ArvoreBinariaDeBusca::remover(Aluno aluno) 
 {
-
+	
 }
 
 void ArvoreBinariaDeBusca::buscar(Aluno& aluno, bool& busca)
 {
+	busca = false;
+	No* noAtual = raiz;
+	while (noAtual != NULL) {
+		if (aluno.obterRa() < noAtual->aluno.obterRa()) {
+			noAtual = noAtual->filhoEsquerda;
+		}
+		else if(aluno.obterRa() > noAtual->aluno.obterRa()){
+			noAtual = noAtual->filhoDireita;
+		}
+		else{
+			aluno = noAtual->aluno;
+			busca = true;
+			break; 
+		}
+	}
 
 }
 
