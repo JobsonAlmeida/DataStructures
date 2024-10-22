@@ -65,7 +65,7 @@ int main() {
 			cout << "Digite 3 para fazer a impressao em pos-ordem.\n";
 			cin >> imp;
 			if (imp == 1) {
-				ArvoreAlunos.imprimirEmOrdem(ArvoreAlunos.obterRaiz());
+				ArvoreAlunos.imprimirPreOrdem(ArvoreAlunos.obterRaiz());
 			}
 			else if (imp == 2) {
 				ArvoreAlunos.imprimirEmOrdem(ArvoreAlunos.obterRaiz());
