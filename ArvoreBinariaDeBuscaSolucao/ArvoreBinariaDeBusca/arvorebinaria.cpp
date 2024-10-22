@@ -88,7 +88,49 @@ void ArvoreBinariaDeBusca::inserir(Aluno aluno)
 
 void ArvoreBinariaDeBusca::remover(Aluno aluno) 
 {
-	
+	removerBusca(aluno, raiz);
+}
+
+void ArvoreBinariaDeBusca::removerBusca(Aluno aluno, No*& noAtual)
+{
+	if (aluno.obterRa() < noAtual->aluno.obterRa()) {
+		removerBusca(aluno, noAtual->filhoEsquerda);
+	}
+	else if (aluno.obterRa() > noAtual->aluno.obterRa()) {
+		removerBusca(aluno, noAtual->filhoDireita);
+	}
+	else {
+		deletarNo(noAtual); // Actually, noAtual is a pointer to where the equality between RA occurred. 
+	}	  
+}
+
+void ArvoreBinariaDeBusca::deletarNo(No*& noAtual) 
+{
+	No* temp = noAtual;
+	if (noAtual->filhoEsquerda == NULL) {
+		noAtual = noAtual->filhoDireita;
+		delete temp;
+	}
+	else if (noAtual->filhoDireita == NULL) {
+		noAtual = noAtual->filhoEsquerda;
+		delete temp;
+	}
+	else {
+		Aluno AlunoSucessor;
+		obterSucessor(AlunoSucessor, noAtual);
+		noAtual->aluno = AlunoSucessor;
+		removerBusca(AlunoSucessor, noAtual->filhoDireita);
+	}
+
+}
+
+void ArvoreBinariaDeBusca::obterSucessor(Aluno& AlunoSucessor, No* temp) 
+{
+	temp = temp->filhoDireita;
+	while (temp->filhoEsquerda != NULL) {
+		temp = temp->filhoEsquerda;
+	}
+	AlunoSucessor = temp->aluno;
 }
 
 void ArvoreBinariaDeBusca::buscar(Aluno& aluno, bool& busca)
