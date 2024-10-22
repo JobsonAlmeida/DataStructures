@@ -11,12 +11,18 @@ ArvoreBinariaDeBusca::ArvoreBinariaDeBusca()
 
 ArvoreBinariaDeBusca::~ArvoreBinariaDeBusca() 
 {
-
+	deletarArvore(raiz);
 }
 
-void ArvoreBinariaDeBusca::deletarArovre(No* NoAtual) 
+void ArvoreBinariaDeBusca::deletarArvore(No* NoAtual) 
 {
+	if (NoAtual != NULL) {
 
+		deletarArvore(NoAtual->filhoEsquerda);
+		deletarArvore(NoAtual->filhoDireita);
+
+		delete NoAtual;
+	}
 }
 
 No* ArvoreBinariaDeBusca::obterRaiz() 
@@ -153,14 +159,44 @@ void ArvoreBinariaDeBusca::buscar(Aluno& aluno, bool& busca)
 
 }
 
-void ArvoreBinariaDeBusca::imprimirPreOrdem(No* NoAtual) {
+void ArvoreBinariaDeBusca::imprimirPreOrdem(No* NoAtual) 
+{
+	if (NoAtual != NULL) {
+
+		cout << NoAtual->aluno.obterNome() << ": ";
+		cout << NoAtual->aluno.obterRa() << endl;
+
+		imprimirPreOrdem(NoAtual->filhoEsquerda);
+
+		imprimirPreOrdem(NoAtual->filhoDireita);
+	}
 
 }
 
-void ArvoreBinariaDeBusca::imprimirEmOrdem(No* NoAtual) {
+void ArvoreBinariaDeBusca::imprimirEmOrdem(No* NoAtual) 
+{
+	if (NoAtual != NULL) {
+
+		imprimirEmOrdem(NoAtual->filhoEsquerda);
+
+		cout << NoAtual->aluno.obterNome() << ": ";
+		cout << NoAtual->aluno.obterRa() << endl;
+
+		imprimirEmOrdem(NoAtual->filhoDireita);
+	}
 
 }
 
-void ArvoreBinariaDeBusca::imprimirPosOrdem(No* NoAtual) {
+void ArvoreBinariaDeBusca::imprimirPosOrdem(No* NoAtual) 
+{
+	if (NoAtual != NULL) {
+
+		imprimirPosOrdem(NoAtual->filhoEsquerda);
+
+		imprimirPosOrdem(NoAtual->filhoDireita);
+
+		cout << NoAtual->aluno.obterNome() << ": ";
+		cout << NoAtual->aluno.obterRa() << endl;
+	}
 
 }

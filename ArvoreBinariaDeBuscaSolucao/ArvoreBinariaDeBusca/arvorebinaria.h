@@ -17,7 +17,7 @@ class ArvoreBinariaDeBusca
 	public:
 		ArvoreBinariaDeBusca();
 		~ArvoreBinariaDeBusca();
-		void deletarArovre(No* NoAtual);
+		void deletarArvore(No* NoAtual);
 		No* obterRaiz();
 		bool estaVazio();
 		bool estaCheio();
