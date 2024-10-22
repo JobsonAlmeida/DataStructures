@@ -130,7 +130,6 @@
     <ClCompile Include="aluno.cpp" />
     <ClCompile Include="arvorebinaria.cpp" />
     <ClCompile Include="main_arvore.cpp" />
-    <ClCompile Include="testes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aluno.h" />
