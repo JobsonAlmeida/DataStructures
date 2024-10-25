@@ -8,6 +8,8 @@ struct No
 	Aluno aluno;
 	No* filhoEsquerda;
 	No* filhoDireita;
+
+	int fatorB;
 };
 
 class ArvoreBinariaDeBusca
