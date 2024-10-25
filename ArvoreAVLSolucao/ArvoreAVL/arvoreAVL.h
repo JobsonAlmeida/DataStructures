@@ -28,7 +28,7 @@ public:
 
 	// methods used in case 3 - node with two children
 	void removerBusca(Aluno aluno, No*& noAtual, bool & diminuiu); //modificada
-	void deletarNo(No*& noAtual); //modificada
+	void deletarNo(No*& noAtual, bool& diminuiu); //modificada
 	void obterSucessor(Aluno& AlunoSucessor, No* temp);
 
 	// methods used to search and print
@@ -39,10 +39,10 @@ public:
 
 
 	//novos métodos
-	void rotacaoDireita(No*& tree);
-	void rotacaoEsquerda(No*& tree);
-	void rotacaoEsquerdaDireita(No*& tree);
-	void rotacaoDireitaEsquerda(No*& tree);
-	void realizaRotacao(No*& tree);
+	void rotacaoDireita(No*& pai);
+	void rotacaoEsquerda(No*& pai);
+	void rotacaoEsquerdaDireita(No*& pai);
+	void rotacaoDireitaEsquerda(No*& pai);
+	void realizaRotacao(No*& pai);
 	void insereRecursivo(No*& noAtual, Aluno aluno, bool & cresceu);
 };

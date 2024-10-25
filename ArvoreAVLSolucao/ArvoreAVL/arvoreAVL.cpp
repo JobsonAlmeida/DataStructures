@@ -49,83 +49,104 @@ bool ArvoreAVL::estaCheio()
 
 void ArvoreAVL::inserir(Aluno aluno)
 {
+	bool cresceu;
+	insereRecursivo(raiz, aluno, cresceu);
+}
+
+void ArvoreAVL::insereRecursivo(No*& noAtual, Aluno aluno, bool& cresceu)
+{
+
 	if (estaCheio())
 	{
 		cout << "A árvore está cheia!\n";
 		cout << "Não foi possível inserir este elemento!\n";
 	}
-	else
-	{
-		No* NoNovo = new No;
-		NoNovo->aluno = aluno;
-		NoNovo->filhoDireita = NULL;
-		NoNovo->filhoEsquerda = NULL;
+	else {
 
-		if (raiz == NULL) {
-			raiz = NoNovo;
+		if (noAtual == NULL) {
+			noAtual = new No;
+			noAtual->filhoDireita = NULL;
+			noAtual->filhoEsquerda = NULL;
+			noAtual->aluno = aluno;
+			noAtual->fatorB = 0;
+			cresceu = true;
+			return;
+		}
+		if (aluno.obterRa() < noAtual->aluno.obterRa()) {
+			insereRecursivo(noAtual->filhoEsquerda, aluno, cresceu);
+			if (cresceu) {
+				noAtual->fatorB -= 1;
+			}
 		}
 		else {
-			No* temp = raiz;
-			while (temp != NULL) {
-				if (aluno.obterRa() < temp->aluno.obterRa()) {
-					if (temp->filhoEsquerda == NULL) {
-						temp->filhoEsquerda = NoNovo;
-						break;
-					}
-					else {
-						temp = temp->filhoEsquerda;
-					}
-				}
-				else {
-					if (temp->filhoDireita == NULL) {
-						temp->filhoDireita = NoNovo;
-						break;
-					}
-					else {
-						temp = temp->filhoDireita;
-					}
-				}
+			insereRecursivo(noAtual->filhoDireita, aluno, cresceu);
+			if (cresceu) {
+				noAtual->fatorB+= 1;
 			}
 		}
 
-	}
+		realizaRotacao(noAtual);
 
+		if (cresceu && noAtual->fatorB == 0) {
+			cresceu = false;
+		}
+	}
 }
 
 void ArvoreAVL::remover(Aluno aluno)
 {
-	removerBusca(aluno, raiz);
+	bool diminuiu;
+	removerBusca(aluno, raiz, diminuiu);
 }
 
-void ArvoreAVL::removerBusca(Aluno aluno, No*& noAtual)
+void ArvoreAVL::removerBusca(Aluno aluno, No*& noAtual, bool& diminuiu)
 {
+	
 	if (aluno.obterRa() < noAtual->aluno.obterRa()) {
-		removerBusca(aluno, noAtual->filhoEsquerda);
+		removerBusca(aluno, noAtual->filhoEsquerda, diminuiu);
+		if (diminuiu) {
+			noAtual->fatorB += 1;
+		}
 	}
 	else if (aluno.obterRa() > noAtual->aluno.obterRa()) {
-		removerBusca(aluno, noAtual->filhoDireita);
+		removerBusca(aluno, noAtual->filhoDireita, diminuiu);
+		if (diminuiu) {
+			noAtual->fatorB -= 1;
+		}
 	}
 	else {
-		deletarNo(noAtual); // Actually, noAtual is a pointer to where the equality between RA occurred. 
+		deletarNo(noAtual, diminuiu); // Actually, noAtual is a pointer to where the equality between RA occurred. 
+	}
+
+	if (noAtual != NULL) {
+		realizaRotacao(noAtual);
+		if (diminuiu && noAtual->fatorB != 0) {
+			diminuiu = false;
+		}
 	}
 }
 
-void ArvoreAVL::deletarNo(No*& noAtual)
+void ArvoreAVL::deletarNo(No*& noAtual, bool& diminuiu)
 {
 	No* temp = noAtual;
 	if (noAtual->filhoEsquerda == NULL) {
 		noAtual = noAtual->filhoDireita;
+		diminuiu = true;
 		delete temp;
 	}
 	else if (noAtual->filhoDireita == NULL) {
 		noAtual = noAtual->filhoEsquerda;
+		diminuiu = true;
 		delete temp;
 	}
 	else {
 		Aluno AlunoSucessor;
 		obterSucessor(AlunoSucessor, noAtual);
 		noAtual->aluno = AlunoSucessor;
-		removerBusca(AlunoSucessor, noAtual->filhoDireita);
+		removerBusca(AlunoSucessor, noAtual->filhoDireita, diminuiu);
+		if (diminuiu) {
+			noAtual->fatorB -= 1; 
+		}
 	}
 
 }
@@ -200,3 +221,114 @@ void ArvoreAVL::imprimirPosOrdem(No* NoAtual)
 	}
 
 }
+
+// Novos métodos
+void ArvoreAVL::rotacaoDireita(No*& pai)
+{
+	No* novopai = pai->filhoEsquerda;
+	pai->filhoEsquerda = novopai->filhoDireita;
+	novopai->filhoDireita = pai;
+	pai = novopai;
+}
+
+void ArvoreAVL::rotacaoEsquerda(No*& pai)
+{
+	No* novopai = pai->filhoDireita;
+	pai->filhoDireita = novopai->filhoEsquerda;
+	novopai->filhoEsquerda = pai;
+	pai = novopai;
+}
+
+void ArvoreAVL::rotacaoDireitaEsquerda(No*& pai)
+{
+	No* filho = pai->filhoDireita;
+	rotacaoDireita(filho);
+	pai->filhoDireita = filho;
+	rotacaoEsquerda(pai);
+}
+
+void ArvoreAVL::rotacaoEsquerdaDireita(No*& pai)
+{
+	No* filho = pai->filhoEsquerda;
+	rotacaoEsquerda(filho);
+	pai->filhoEsquerda = filho;
+	rotacaoDireita(pai);
+}
+
+void ArvoreAVL::realizaRotacao(No*& pai)
+{
+	No* filho;
+	No* neto;
+
+	if (pai->fatorB == -2) // rotaciona para a direita
+	{
+		filho = pai->filhoEsquerda;
+
+		if (filho->fatorB == -1) { // rotação simples para a direita
+			pai->fatorB = 0;
+			filho->fatorB = 0;
+			rotacaoDireita(pai);
+		}
+		else if (filho->fatorB == 0) { // rotação simples para a direita
+			pai->fatorB = -1;
+			filho->fatorB = 1;
+			rotacaoDireita(pai);
+		}
+		else if (filho->fatorB == +1) { // rotação dupla é necessária
+			
+			neto = filho->filhoDireita;
+
+			if (neto->fatorB == -1) {
+				pai->fatorB = 1;
+				filho->fatorB = 0;
+			}
+			else if (neto->fatorB == 0) {
+				pai->fatorB = 0;
+				filho->fatorB = 0;
+			}
+			else if (neto->fatorB == +1) {
+				pai->fatorB = 0;
+				filho->fatorB = -1;
+			}
+
+			neto->fatorB = 0;
+
+			rotacaoEsquerdaDireita(pai);
+		
+		}
+	}
+	else if (pai->fatorB == +2) //rotaciona para a esquerda
+	{
+		filho = pai->filhoDireita;
+		if (filho->fatorB == 1) { // rotação simples para a esquerda
+			pai->fatorB = 0;
+			filho->fatorB = 0;
+			rotacaoEsquerda(pai);
+		}
+		else if (filho->fatorB == 0) { // rotação simples para a esquerda         
+			pai->fatorB = 1;
+			filho->fatorB = -1;
+			rotacaoEsquerda(pai);
+		}
+		else if (filho->fatorB == -1) { // rotação dupla é necessária
+			neto = filho->filhoEsquerda;
+			if (neto->fatorB == -1) {
+				pai->fatorB = 0;
+				filho->fatorB = 1;
+			}
+			else if (neto->fatorB == 0) {
+				pai->fatorB = 0;
+				filho->fatorB = 0;
+			}
+			else if (neto->fatorB == 1) {
+				pai->fatorB = -1;
+				filho->fatorB = 0;
+			}
+
+			neto->fatorB = 0;
+
+			rotacaoDireitaEsquerda(pai);
+		}
+	}
+}
+
