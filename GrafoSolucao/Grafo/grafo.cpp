@@ -77,8 +77,12 @@ void Grafo::insereAresta(TipoItem noSaida, TipoItem noEntrada, int peso)
 	int linha = obterIndice(noSaida);
 	int coluna = obterIndice(noEntrada);
 
-	if (linha == arestaNula || coluna == arestaNula) {
-		cout << "Entrada ou Saída não existente!\n";
+	if (linha == arestaNula) {
+		cout << "Saída não existente!\n";
+		return;
+	}
+	else if (coluna == arestaNula) {
+		cout << "Entrada não existente!\n";
 		return;
 	}
 
@@ -89,6 +93,19 @@ void Grafo::insereAresta(TipoItem noSaida, TipoItem noEntrada, int peso)
 
 int Grafo::obterPeso(TipoItem noSaida, TipoItem noEntrada) 
 {
+	int linha = obterIndice(noSaida);
+	int coluna = obterIndice(noEntrada);
+
+	if (linha == arestaNula) {
+		cout << "Saída não existente!\n";
+		return linha;
+	}
+	else if (coluna == arestaNula) {
+		cout << "Entrada não existente!\n";
+		return coluna;
+	}
+
+	return matrizAdjacencias[linha][coluna];
 
 }
 
