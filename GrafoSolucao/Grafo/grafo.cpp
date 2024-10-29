@@ -74,6 +74,16 @@ void Grafo::isereVertice(TipoItem item)
 
 void Grafo::insereAresta(TipoItem noSaida, TipoItem noEntrada, int peso) 
 {
+	int linha = obterIndice(noSaida);
+	int coluna = obterIndice(noEntrada);
+
+	if (linha == arestaNula || coluna == arestaNula) {
+		cout << "Entrada ou Saída não existente!\n";
+		return;
+	}
+
+	matrizAdjacencias[linha][coluna] = peso;
+	matrizAdjacencias[coluna][linha] = peso; // not applied when graph is undirected
 
 }
 
