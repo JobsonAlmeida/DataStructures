@@ -24,8 +24,15 @@ Grafo::Grafo(int max, int valorArestaNula) //construtor
 
 }
 
-Grafo::~Grafo() 
+Grafo::~Grafo() //destrutor
 {
+	delete[] vertices;
+
+	for (int i = 0; i < maxVertices; i++) {
+		delete[] matrizAdjacencias[i];
+	}
+
+	delete[] matrizAdjacencias;
 
 }
 
