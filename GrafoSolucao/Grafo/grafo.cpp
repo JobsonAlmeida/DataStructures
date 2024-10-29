@@ -58,7 +58,7 @@ int Grafo::obterIndice(TipoItem item)
 
 bool Grafo::estaCheio() 
 {
-
+	return (numVertices == maxVertices);
 }
 
 void Grafo::isereVertice(TipoItem item) 
