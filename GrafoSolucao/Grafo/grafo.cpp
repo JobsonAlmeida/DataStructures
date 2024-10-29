@@ -137,5 +137,10 @@ void Grafo::imprimirMatriz()
 
 void Grafo::imprimirVertices() 
 {
+	cout << "Lista de vertices\n";
+
+	for (int i = 0; i < numVertices; i++) {
+		cout << i << ": " << vertices[i] << endl;
+	}
 
 }
