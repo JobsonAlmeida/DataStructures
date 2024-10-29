@@ -124,6 +124,14 @@ int Grafo::obterGrau(TipoItem item)
 
 void Grafo::imprimirMatriz() 
 {
+	cout << "Matriz de adecências: \n";
+
+	for (int i = 0; i < maxVertices; i++) {
+		for (int j = 0; j < maxVertices; j++) {
+			cout << matrizAdjacencias[i][j] << " ";
+		}
+		cout << endl;
+	}
 
 }
 
