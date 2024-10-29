@@ -111,7 +111,15 @@ int Grafo::obterPeso(TipoItem noSaida, TipoItem noEntrada)
 
 int Grafo::obterGrau(TipoItem item) 
 {
+	int linha = obterIndice(item);
+	int grau = 0;
+	for (int i = 0; i < maxVertices; i++) {
+		if (matrizAdjacencias[linha][i] != arestaNula) {
+			grau++;
+		}
+	}
 
+	return grau;
 }
 
 void Grafo::imprimirMatriz() 
