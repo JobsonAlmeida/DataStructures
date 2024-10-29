@@ -38,6 +38,21 @@ Grafo::~Grafo() //destrutor
 
 int Grafo::obterIndice(TipoItem item) 
 {
+	int indice = 0;
+	while (item != vertices[indice]) {
+		indice++;
+
+		if (indice > maxVertices) {
+			break;
+		}
+	}
+
+	if (item == vertices[indice]) { //checking if ite was found
+		return indice;
+	}
+	else {
+		return -1;
+	}
 
 }
 
