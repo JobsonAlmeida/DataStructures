@@ -63,7 +63,13 @@ bool Grafo::estaCheio()
 
 void Grafo::isereVertice(TipoItem item) 
 {
-
+	if (estaCheio()) {
+		cout << "O número máximo de vertices foi alcançado!\n";
+	}
+	else {
+		vertices[numVertices] = item;
+		numVertices++;
+	}
 }
 
 void Grafo::insereAresta(TipoItem noSaida, TipoItem noEntrada, int peso) 
