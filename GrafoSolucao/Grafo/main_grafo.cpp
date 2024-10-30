@@ -27,6 +27,9 @@ int main() {
         cout << "Digite 4 para imprimir o peso de uma aresta!\n";
         cout << "Digite 5 para imprimir a matriz de adjacencias!\n";
         cout << "Digite 6 para imprimir a lista de vertices!\n";
+        cout << "Digite 7 para realizar a busca em largura!\n";
+        cout << "Digite 8 para realizar a busca em profundidade!\n";
+
         cin >> opcao;
 
         if (opcao == 1) {
@@ -62,6 +65,20 @@ int main() {
         }
         else if (opcao == 6) {
             grafo1.imprimirVertices();
+        }
+        else if (opcao == 7) {
+            cout << "Digite o vertice de origem:\n";
+            cin >> item1;
+            cout << "Digite o vertice de destino:\n";
+            cin >> item2;
+            grafo1.buscaEmLargura(item1, item2);
+        }
+        else if (opcao == 8) {
+            cout << "Digite o vertice de origem:\n";
+            cin >> item1;
+            cout << "Digite o vertice de destino:\n";
+            cin >> item2;
+            grafo1.buscaEmProfundidade(item1, item2);
         }
 
         cout << "\n";

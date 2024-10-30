@@ -127,11 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="filadinamica.cpp" />
     <ClCompile Include="grafo.cpp" />
     <ClCompile Include="main_grafo.cpp" />
+    <ClCompile Include="No.cpp" />
+    <ClCompile Include="pilhadinamica.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="filadinamica.h" />
     <ClInclude Include="grafo.h" />
+    <ClInclude Include="No.h" />
+    <ClInclude Include="pilhadinamica.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

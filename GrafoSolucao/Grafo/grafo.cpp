@@ -10,6 +10,7 @@ Grafo::Grafo(int max, int valorArestaNula) //construtor
 	arestaNula = valorArestaNula;
 
 	vertices = new TipoItem[maxVertices];
+	marcador = new bool[maxVertices];
 
 	matrizAdjacencias = new int*[maxVertices];
 	for (int i = 0; i < maxVertices; i++) {
@@ -87,7 +88,7 @@ void Grafo::insereAresta(TipoItem noSaida, TipoItem noEntrada, int peso)
 	}
 
 	matrizAdjacencias[linha][coluna] = peso;
-	matrizAdjacencias[coluna][linha] = peso; // not applied when graph is undirected
+	//matrizAdjacencias[coluna][linha] = peso; // not applied when graph is undirected
 
 }
 
@@ -124,7 +125,7 @@ int Grafo::obterGrau(TipoItem item)
 
 void Grafo::imprimirMatriz() 
 {
-	cout << "Matriz de adecências: \n";
+	cout << "Matriz de adjacências: \n";
 
 	for (int i = 0; i < maxVertices; i++) {
 		for (int j = 0; j < maxVertices; j++) {
@@ -141,6 +142,85 @@ void Grafo::imprimirVertices()
 
 	for (int i = 0; i < numVertices; i++) {
 		cout << i << ": " << vertices[i] << endl;
+	}
+
+}
+
+void Grafo::limpaMarcador()
+{
+	for (int i = 0; i < maxVertices; i++) {
+		marcador[i] = false;
+	}
+}
+
+void Grafo::buscaEmLargura(TipoItem origem, TipoItem destino) // we want the search from one specific vertice to another specific vertice
+{
+	filadinamica filaVertices;
+	bool encontrado = false;
+	limpaMarcador();
+	filaVertices.inserir(origem); 
+
+	do {
+		TipoItem verticeAtual = filaVertices.remover();
+		if (verticeAtual == destino) {
+			cout << "Visitando: " << verticeAtual << endl;
+			cout << "Caminho encontrado!\n";
+			encontrado = true;
+		}
+		else {
+			int indice = obterIndice(verticeAtual);
+			cout << "Visitando: " << verticeAtual << endl;
+			for (int i = 0; i < maxVertices; i++) {
+				if (matrizAdjacencias[indice][i] != arestaNula) {
+					if (!marcador[i]) {
+						cout << "Enfileirando: " << vertices[i] << endl;
+						filaVertices.inserir(vertices[i]);
+						marcador[i] = true;
+					}
+				}
+			}
+		}
+
+	} while (!filaVertices.estavazio() && !encontrado);
+
+	if (!encontrado) {
+		cout << "Caminho não encontrado!\n";
+	}
+		
+}
+
+void Grafo::buscaEmProfundidade(TipoItem origem, TipoItem destino) 
+{
+	pilhadinamica pilhaVertices;
+	bool encontrado = false;
+	limpaMarcador();
+	pilhaVertices.inserir(origem);
+
+	do {
+		TipoItem verticeAtual = pilhaVertices.remover();
+		if (verticeAtual == destino) {
+			cout << "Visitando: " << verticeAtual << endl;
+			cout << "Caminho encontrado!\n";
+			encontrado = true;
+		}
+		else {
+			int indice = obterIndice(verticeAtual);
+			cout << "Visitando: " << verticeAtual << endl;
+			for (int i = 0; i < maxVertices; i++) {
+				if (matrizAdjacencias[indice][i] != arestaNula) {
+					if (!marcador[i]) {
+						cout << "Empilhando: " << vertices[i] << endl;
+						pilhaVertices.inserir(vertices[i]);
+						marcador[i] = true;
+					}
+				}
+			}
+		}
+
+	} while (!pilhaVertices.estavazio() && !encontrado);
+
+	if (!encontrado) {
+		cout << "Caminho não encontrado!\n";
 	}
 
 }

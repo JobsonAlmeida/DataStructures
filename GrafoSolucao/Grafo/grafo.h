@@ -1,14 +1,15 @@
 #pragma once
 
 //Grafo Simples - Não há arestas múltiplas nem laços
-//Grafo Simples Não-Direcionado e Ponderado
+//Grafo Simples Direcionado e Ponderado
 
 #include <iostream>
+#include "pilhadinamica.h"
+#include "filadinamica.h"
 
 using namespace std;
 
-typedef string TipoItem;
-
+//typedef string TipoItem;
 
 class Grafo {
 	private: 
@@ -17,6 +18,7 @@ class Grafo {
 		int arestaNula;			
 		TipoItem* vertices;
 		int** matrizAdjacencias;
+		bool* marcador;
 
 	public:
 
@@ -31,5 +33,9 @@ class Grafo {
 		void imprimirMatriz();
 		void imprimirVertices();
 
+		//novos
+		void limpaMarcador();
+		void buscaEmLargura(TipoItem origem, TipoItem destino);
+		void buscaEmProfundidade(TipoItem origem, TipoItem destino);
 };
 
